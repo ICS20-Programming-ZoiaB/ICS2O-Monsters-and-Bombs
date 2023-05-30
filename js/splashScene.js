@@ -33,6 +33,7 @@ class SplashScene extends Phaser.Scene {
   */
   preload() {
     console.log("Splash Scene")
+    this.load.image("splashSceneBackground, images/splashSceneImage.png")
   }
 
   /** 
@@ -42,6 +43,9 @@ class SplashScene extends Phaser.Scene {
   */
   create(data) {
     //pass
+    this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
+    this.splashSceneBackgroundImage.x = 1920 / 2
+    this.splashSceneBackgroundImage.y = 1080 / 2
   }
 
   /** 
@@ -51,8 +55,10 @@ class SplashScene extends Phaser.Scene {
   * @param {number} delta - The delta time in ms since the last frame.
   */
   update(time, delta) {
-    //pass
-    this.scene.switch("titleScene")
+    if (time > 3000) {
+      //pass
+      this.scene.switch("titleScene")
+    }
   }
 }
 
