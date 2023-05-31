@@ -1,18 +1,15 @@
 /* global Phaser */
 
-// Copyright (c) 2023 ZoiaB All rights reserved
+// Copyright (c) 2020 Mr. Coxall All rights reserved
 //
-// Created by: ZoiaB
-// Created on: May 2023
+// Edited by: ZoiaB
+// Edited on: May 2023
 // This is the Splash Scene
 
-/** 
-* This class is the Splash Scene.
-*/
+// This class is the Splash Scene.
 class SplashScene extends Phaser.Scene {
-  /** 
-  * This method is the constructor.
-  */
+
+  // This is the constructor.
   constructor() {
     super({ key: "splashScene"})
   }
@@ -33,7 +30,7 @@ class SplashScene extends Phaser.Scene {
   */
   preload() {
     console.log("Splash Scene")
-    this.load.image("splashSceneBackground, images/splashSceneImage.png")
+    this.load.image("splashSceneBackground", "images/splashSceneImage.png")
   }
 
   /** 
@@ -56,7 +53,6 @@ class SplashScene extends Phaser.Scene {
   */
   update(time, delta) {
     if (time > 3000) {
-      //pass
       this.scene.switch("titleScene")
     }
   }

@@ -1,14 +1,13 @@
 /* global Phaser */
 
-// Copyright (c) 2023 ZoiaB All rights reserved
+// Copyright (c) 2020 Mr. Coxall All rights reserved
 //
-// Created by: ZoiaB
-// Created on: May 2023
+// Edited by: ZoiaB
+// Edited on: May 2023
 // This is the Title Scene
 
-/** 
-* This class is the Splash Scene.
-*/
+
+// This class is the Splash Scene
 class TitleScene extends Phaser.Scene {
   /** 
   * This method is the constructor.
