@@ -7,51 +7,32 @@
 // This is the Title Scene
 
 
-// This class is the Splash Scene
+// Adding to Phaser.Scene
 class TitleScene extends Phaser.Scene {
-  /** 
-  * This method is the constructor.
-  */
+
+  // This is the constructor for the title scene
   constructor() {
     super({ key: "titleScene"})
   }
 
-  /** 
-  *Can be defined on your own Scenes.
-  *This method is called by the Scene Manager when the scene starts, 
-  *before preload() and create().
-  *@param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
+  // Initializing title scene
   init(data) {
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
-  /**
-  * Can be defined on your own Scenes.
-  * Use it to load assets.
-  */
+  // Logs title scene during preload phase
   preload() {
     console.log("Title Scene")
   }
 
-  /** 
-  * Can be defined on your own Scenes.
-  * Use it to create your game objects
-  * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
+  // Creating data object
   create(data) {
-    //pass
   }
 
-  /** 
-  * Should be overridden by your own Scenes.
-  * This method is called once per game stem while the scene is running.
-  * @param {number} time - The current time.
-  * @param {number} delta - The delta time in ms since the last frame.
-  */
+  // Update using time and delta
   update(time, delta) {
-    //pass
   }
 }
 
+// Exports title scene as default
 export default TitleScene

@@ -9,48 +9,30 @@
 // This class is the Splash Scene.
 class SplashScene extends Phaser.Scene {
 
-  // This is the constructor.
+  // This is the constructor for the splash scene
   constructor() {
     super({ key: "splashScene"})
   }
 
-  /** 
-  *Can be defined on your own Scenes.
-  *This method is called by the Scene Manager when the scene starts, 
-  *before preload() and create().
-  *@param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
+  // Initializing scene 
   init(data) {
-    this.cameras.main.setBackgroundColor("ffffff")
+    this.cameras.main.setBackgroundColor("#A9E5BB")
   }
 
-  /**
-  * Can be defined on your own Scenes.
-  * Use it to load assets.
-  */
+  // Loads and logs splash scene image
   preload() {
     console.log("Splash Scene")
     this.load.image("splashSceneBackground", "images/splashSceneImage.png")
   }
 
-  /** 
-  * Can be defined on your own Scenes.
-  * Use it to create your game objects
-  * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
+  // Creates and properly positions splash scene background
   create(data) {
-    //pass
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
   }
 
-  /** 
-  * Should be overridden by your own Scenes.
-  * This method is called once per game stem while the scene is running.
-  * @param {number} time - The current time.
-  * @param {number} delta - The delta time in ms since the last frame.
-  */
+  // If statement to switch to title scene after a certain amount of time has elapsed
   update(time, delta) {
     if (time > 3000) {
       this.scene.switch("titleScene")
@@ -58,4 +40,5 @@ class SplashScene extends Phaser.Scene {
   }
 }
 
+// Exports splash scene as default
 export default SplashScene
