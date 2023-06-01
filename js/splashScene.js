@@ -16,7 +16,7 @@ class SplashScene extends Phaser.Scene {
 
   // Initializing scene 
   init(data) {
-    this.cameras.main.setBackgroundColor("#A9E5BB")
+    this.cameras.main.setBackgroundColor("94D2BD")
   }
 
   // Loads and logs splash scene image
@@ -30,11 +30,19 @@ class SplashScene extends Phaser.Scene {
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
+
+    // Special effect to rotate the image continuously (site referenced for the method: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/tween-timeline/, and site referenced for the math: https://youtu.be/z8vj8tUCkxY and https://ee.stanford.edu/~hellman/playground/hyperspheres/radians.html#:~:text=There%20are%202%CF%80%20radians%20in,%C2%B0%20to%20four%20significant%20figures.)
+    this.tweens.add({
+      targets: this.splashSceneBackgroundImage,
+      rotation: Math.PI * 2,
+      duration: 250,
+      repeat: 0
+    });
   }
 
-  // If statement to switch to title scene after a certain amount of time has elapsed
+  // If statement to switch to title scene after 4000 millisecond elapsed
   update(time, delta) {
-    if (time > 3000) {
+    if (time > 4000) {
       this.scene.switch("titleScene")
     }
   }
