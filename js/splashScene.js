@@ -14,7 +14,7 @@ class SplashScene extends Phaser.Scene {
     super({ key: "splashScene"})
   }
 
-  // Initializing scene 
+  // Initializing scene with background color
   init(data) {
     this.cameras.main.setBackgroundColor("94D2BD")
   }
@@ -40,7 +40,7 @@ class SplashScene extends Phaser.Scene {
     });
   }
 
-  // If statement to switch to title scene after 4000 millisecond elapsed
+  // If statement to switch to title scene after 4000 milliseconds have elapsed
   update(time, delta) {
     if (time > 4000) {
       this.scene.switch("titleScene")
