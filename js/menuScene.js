@@ -31,7 +31,7 @@ class MenuScene extends Phaser.Scene {
     this.load.image("startButton", "images/start.png")
   }
 
-  // Creating data object
+  // Creating objects
   create(data) {
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(3.79999)
     this.menuSceneBackgroundImage.x = 1920 / 2
@@ -47,7 +47,7 @@ class MenuScene extends Phaser.Scene {
   }
 
   // Function for clicking button
-  clickButton () {
+  clickButton() {
     this.scene.start("gameScene")
   }
 }

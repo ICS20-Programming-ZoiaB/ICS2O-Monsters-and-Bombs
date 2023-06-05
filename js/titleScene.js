@@ -31,7 +31,7 @@ class TitleScene extends Phaser.Scene {
     this.load.image("titleSceneBackground", "images/red-sun-scene-title.png")
   }
 
-  // Creating data object
+  // Creating objects and setting them to desired locations
   create(data) {
     this.titleSceneBackgroundImage = this.add.sprite(0, 0, "titleSceneBackground").setScale(3.79999)
     this.titleSceneBackgroundImage.x = 1920 / 2
@@ -39,9 +39,17 @@ class TitleScene extends Phaser.Scene {
 
     // Title scene text
     this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Monsters and Bombs", this.titleSceneTextStyle).setOrigin(0.5, 2.5)
+    // Adding shake effect to text, using the tweens method. It works by targeting the text, incrementing x by 10, telling it to repeat by setting "yoyo" as "true", and making it repeat twice for a duration of 100 milliseconds (method taken from: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/tween-timeline/)
+    this.tweens.add({
+      targets: this.titleSceneText,
+      x: '+=10',
+      yoyo: true,
+      repeat: 2,
+      duration: 100
+    });
   }
 
-  // Switch to menu scene after 6000 milliseconds have elapsed
+  // Switch to menu scene after 6000 milliseconds have passed
   update(time, delta) {
     if (time > 6000) {
       this.scene.switch("menuScene")

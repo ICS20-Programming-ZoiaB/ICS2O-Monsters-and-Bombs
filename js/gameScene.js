@@ -33,14 +33,13 @@ class GameScene extends Phaser.Scene {
     this.load.image("missile", "images/fire-missile.png")
   }
 
-  // Creating data object
+  // Creating game objects
   create(data) {
   this.background = this.add.image(1920 / 2, 1080 / 2, "sunsetBackground").setScale(3.79999);
   this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
   this.missileGroup = this.physics.add.group();
 }
 
-  
 
   // Update using time and delta
   update(time, delta) {
@@ -70,7 +69,7 @@ class GameScene extends Phaser.Scene {
       if (this.fireMissile === false) {
         // Firing missile
         this.fireMissile = true
-        const aNewMissile = this.physics.add.sprite(this.monster.x, this.monster.y, "missile")
+        const aNewMissile = this.physics.add.sprite(this.monster.x, this.monster.y, "missile").setScale(0.7)
       this.missileGroup.add(aNewMissile)
       }
     }
