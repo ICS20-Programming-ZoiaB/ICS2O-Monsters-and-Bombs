@@ -40,7 +40,6 @@ class GameScene extends Phaser.Scene {
   this.missileGroup = this.physics.add.group();
   }
 
-
   // Update using time and delta
   update(time, delta) {
     // Keys to control movement of the monster and missiles
@@ -52,7 +51,7 @@ class GameScene extends Phaser.Scene {
     if (keyLeftObj.isDown === true) {
       this.monster.x = this.monster.x - 15
       if (this.monster.x < 0) {
-        this.monster.x = 0
+        this.monster.x = 1920
       }
     }
 
@@ -60,7 +59,7 @@ class GameScene extends Phaser.Scene {
     if (keyRightObj.isDown === true) {
       this.monster.x = this.monster.x + 15
       if (this.monster.x > 1920) {
-        this.monster.x = 1920
+        this.monster.x = 0
       }
     }
 
