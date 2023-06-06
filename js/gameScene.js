@@ -13,7 +13,7 @@ class GameScene extends Phaser.Scene {
   // This is the constructor for the game scene
   constructor() {
     super({ key: "gameScene"})
-    // Assigning null to background
+    // Assigning null to background and monster, false the fireMissile
     this.background = null
     this.monster = null
     this.fireMissile = false
