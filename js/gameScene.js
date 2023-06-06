@@ -27,10 +27,12 @@ class GameScene extends Phaser.Scene {
     this.background = null
     this.monster = null
     this.fireMissile = false
+    // Score and score text
     this.score = 0
     this.scoreText = null
-    // Style for score text
     this.scoreTextStyle = { font: "65px Roboto", fill: "#0A9396", align: "center"}
+    this.gameOverText = null
+    this.gameOverTextStyle = { font: "65px Roboto", fill: "#0A9396", align: "center"}
   }
 
   // Initializing game scene with background color
@@ -49,7 +51,7 @@ class GameScene extends Phaser.Scene {
     // Sound
     this.load.audio("laser", "audio/missile-sound-effect.wav")
     this.load.audio("explosion", "audio/explosion-sound-effect.wav")
-
+    this.load.audio("bomb", "audio/bomb-sound-effect.wav")
   }
 
   // Creating game objects
@@ -66,7 +68,7 @@ class GameScene extends Phaser.Scene {
     this.bombGroup = this.add.group()
     this.createBomb()
 
-    // Collisions between bombs and monster
+    // Collisions between bombs and missiles
     this.physics.add.collider(this.missileGroup, this.bombGroup, function(missileCollide, bombCollide) {
       // Destroy bomb and missile when they collide
       bombCollide.destroy()
@@ -79,6 +81,17 @@ class GameScene extends Phaser.Scene {
       // Creating bomb
       this.createBomb()
       this.createBomb()
+    }.bind(this))
+
+    // Collisions between bombs and monster
+    this.physics.add.collider(this.monster, this.bombGroup, function (monsterCollide, bombCollide) {
+      this.sound.play("bomb")
+      this.physics.pause()
+      bombCollide.destroy()
+      monsterCollide.destroy()
+      this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over!\nClick to play again.", this.gameOverTextStyle).setOrigin(0.5)
+      this.gameOverText.setInteractive({ useHandCursor: true})
+      this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
     }.bind(this))
   }
 
