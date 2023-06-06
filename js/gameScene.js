@@ -23,10 +23,14 @@ class GameScene extends Phaser.Scene {
   // This is the constructor for the game scene
   constructor() {
     super({ key: "gameScene"})
-    // Assigning null to background and monster, false the fireMissile
+    // Assigning null to background, monster, and score text, false the fireMissile, and 0 to score
     this.background = null
     this.monster = null
     this.fireMissile = false
+    this.score = 0
+    this.scoreText = null
+    // Style for score text
+    this.scoreTextStyle = { font: "65px Roboto", fill: "#0A9396", align: "center"}
   }
 
   // Initializing game scene with background color
@@ -44,16 +48,38 @@ class GameScene extends Phaser.Scene {
     this.load.image("bomb", "images/bomb.png")
     // Sound
     this.load.audio("laser", "audio/missile-sound-effect.wav")
+    this.load.audio("explosion", "audio/explosion-sound-effect.wav")
+
   }
 
   // Creating game objects
   create(data) {
+    // Background
     this.background = this.add.image(1920 / 2, 1080 / 2, "sunsetBackground").setScale(3.79999);
+    // Score
+    this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
+    // Monster
     this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
+    // Missiles
     this.missileGroup = this.physics.add.group()
+    // Bombs
     this.bombGroup = this.add.group()
     this.createBomb()
-  
+
+    // Collisions between bombs and monster
+    this.physics.add.collider(this.missileGroup, this.bombGroup, function(missileCollide, bombCollide) {
+      // Destroy bomb and missile when they collide
+      bombCollide.destroy()
+      missileCollide.destroy()
+      // Play sound effect
+      this.sound.play("explosion")
+      // Getting score
+      this.score = this.score + 1
+      this.scoreText.setText("Score: " + this.score.toString())
+      // Creating bomb
+      this.createBomb()
+      this.createBomb()
+    }.bind(this))
   }
 
   // Update using time and delta
