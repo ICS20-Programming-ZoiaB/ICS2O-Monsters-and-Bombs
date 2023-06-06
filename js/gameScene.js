@@ -9,6 +9,16 @@
 
 // Adding to Phaser.Scene
 class GameScene extends Phaser.Scene {
+  // Create a bomb and setting velocity
+  createBomb () {
+    const bombXLocation = Math.floor(Math.random() * 1920) +1
+    let bombXVelocity = Math.floor(Math.random() * 50) + 1
+    bombXVelocity *= Math.round(Math.random()) ? 1 : -1
+    const aBomb = this.physics.add.sprite(bombXLocation, -100, "bomb")
+    aBomb.body.velocity.y = 200
+    aBomb.body.velocity.x = bombXVelocity
+    this.bombGroup.add(aBomb)
+  }
 
   // This is the constructor for the game scene
   constructor() {
@@ -31,13 +41,19 @@ class GameScene extends Phaser.Scene {
     this.load.image("sunsetBackground", "images/sunset-background-game.png")
     this.load.image("monster", "images/monster.png")
     this.load.image("missile", "images/fire-missile.png")
+    this.load.image("bomb", "images/bomb.png")
+    // Sound
+    this.load.audio("laser", "audio/missile-sound-effect.wav")
   }
 
   // Creating game objects
   create(data) {
-  this.background = this.add.image(1920 / 2, 1080 / 2, "sunsetBackground").setScale(3.79999);
-  this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
-  this.missileGroup = this.physics.add.group();
+    this.background = this.add.image(1920 / 2, 1080 / 2, "sunsetBackground").setScale(3.79999);
+    this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
+    this.missileGroup = this.physics.add.group()
+    this.bombGroup = this.add.group()
+    this.createBomb()
+  
   }
 
   // Update using time and delta
@@ -69,7 +85,8 @@ class GameScene extends Phaser.Scene {
         // Firing missile
         this.fireMissile = true
         const aNewMissile = this.physics.add.sprite(this.monster.x, this.monster.y, "missile").setScale(0.7)
-      this.missileGroup.add(aNewMissile)
+        this.missileGroup.add(aNewMissile)
+        this.sound.play("laser")
       }
     }
 
@@ -77,6 +94,13 @@ class GameScene extends Phaser.Scene {
     if (keySpaceObj.isUp === true) {
       this.fireMissile = false
     }
+    // To make missiles move up the screen
+    this.missileGroup.children.each(function (item) {
+       item.y = item.y - 15
+      if (item.y < 0) {
+        item.destroy()
+      }
+    })
   }
 }
 
