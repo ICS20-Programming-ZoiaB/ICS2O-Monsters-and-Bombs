@@ -38,12 +38,12 @@ class GameScene extends Phaser.Scene {
   this.background = this.add.image(1920 / 2, 1080 / 2, "sunsetBackground").setScale(3.79999);
   this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
   this.missileGroup = this.physics.add.group();
-}
+  }
 
 
   // Update using time and delta
   update(time, delta) {
-    // Keys to control movement of the monster
+    // Keys to control movement of the monster and missiles
     const keyLeftObj = this.input.keyboard.addKey("LEFT")
     const keyRightObj = this.input.keyboard.addKey("RIGHT")
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
