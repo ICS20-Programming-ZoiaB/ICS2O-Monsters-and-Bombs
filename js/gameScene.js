@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
     let bombXVelocity = Math.floor(Math.random() * 50) + 1
     bombXVelocity *= Math.round(Math.random()) ? 1 : -1
     const aBomb = this.physics.add.sprite(bombXLocation, -100, "bomb")
-    aBomb.body.velocity.y = 200
+    aBomb.body.velocity.y = 100
     aBomb.body.velocity.x = bombXVelocity
     this.bombGroup.add(aBomb)
   }
@@ -85,13 +85,18 @@ class GameScene extends Phaser.Scene {
 
     // Collisions between bombs and monster
     this.physics.add.collider(this.monster, this.bombGroup, function (monsterCollide, bombCollide) {
+      // Play sound
       this.sound.play("bomb")
       this.physics.pause()
+      // Destroy when collision occurs
       bombCollide.destroy()
       monsterCollide.destroy()
+      // Game over text
       this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over!\nClick to play again.", this.gameOverTextStyle).setOrigin(0.5)
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+      // Reset score to 0
+      this.score = 0;
     }.bind(this))
   }
 
@@ -123,7 +128,7 @@ class GameScene extends Phaser.Scene {
       if (this.fireMissile === false) {
         // Firing missile
         this.fireMissile = true
-        const aNewMissile = this.physics.add.sprite(this.monster.x, this.monster.y, "missile").setScale(0.7)
+        const aNewMissile = this.physics.add.sprite(this.monster.x - 140, this.monster.y - 150, "missile").setScale(0.7)
         this.missileGroup.add(aNewMissile)
         this.sound.play("laser")
       }
