@@ -61,6 +61,7 @@ class MenuScene extends Phaser.Scene {
   clickInstructions() {
     this.scene.start("instructionsScene")
   }
+
 }
 
 // Exports menu scene as default
