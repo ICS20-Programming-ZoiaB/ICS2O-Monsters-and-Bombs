@@ -14,7 +14,7 @@ class GameScene extends Phaser.Scene {
     const bombXLocation = Math.floor(Math.random() * 1920) +1
     let bombXVelocity = Math.floor(Math.random() * 50) + 1
     bombXVelocity *= Math.round(Math.random()) ? 1 : -1
-    const aBomb = this.physics.add.sprite(bombXLocation, -100, "bomb")
+    const aBomb = this.physics.add.sprite(bombXLocation, -100, "bomb").setScale(0.5)
     aBomb.body.velocity.y = 100
     aBomb.body.velocity.x = bombXVelocity
     this.bombGroup.add(aBomb)
@@ -67,6 +67,13 @@ class GameScene extends Phaser.Scene {
     // Bombs
     this.bombGroup = this.add.group()
     this.createBomb()
+    // Timer that controls the time for bombs and make it re-spawn even if user does nothing
+    this.bombTimer = this.time.addEvent({
+      delay: 4000,
+      callback: this.createBomb,
+      callbackScope: this,
+      loop: true
+    });
 
     // Collisions between bombs and missiles
     this.physics.add.collider(this.missileGroup, this.bombGroup, function(missileCollide, bombCollide) {
