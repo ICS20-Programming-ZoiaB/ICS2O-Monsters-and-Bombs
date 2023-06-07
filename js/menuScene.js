@@ -6,7 +6,6 @@
 // Edited on: May 2023
 // This is the Menu Scene
 
-
 // Adding to Phaser.Scene
 class MenuScene extends Phaser.Scene {
 
@@ -17,6 +16,8 @@ class MenuScene extends Phaser.Scene {
     this.menuSceneBackgroundImage = null
     // Button to start game
     this.startButton = null
+    // Button to go to instructions scene
+    this.instructionsButton = null
   }
 
   // Initializing menu scene with background color
@@ -29,6 +30,7 @@ class MenuScene extends Phaser.Scene {
     console.log("Menu Scene")
     this.load.image("menuSceneBackground", "images/gradient-sky-menu.png")
     this.load.image("startButton", "images/start.png")
+    this.load.image("instructionsButton", "images/instructions.png")
   }
 
   // Creating objects
@@ -39,16 +41,25 @@ class MenuScene extends Phaser.Scene {
     //Start button
     this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
-    this.startButton.on("pointerdown", () => this.clickButton())
+    this.startButton.on("pointerdown", () => this.clickStart())
+    //Instructions button
+    this.instructionsButton = this.add.sprite(1920 / 2, (1080 / 2) + 300, "instructionsButton")
+    this.instructionsButton.setInteractive({ useHandCursor: true })
+    this.instructionsButton.on("pointerdown", () => this.clickInstructions())
   }
 
   // Update using time and delta
   update(time, delta) {
   }
 
-  // Function for clicking button
-  clickButton() {
+  // Function for clicking start button
+  clickStart() {
     this.scene.start("gameScene")
+  }
+
+  // Function for clicking instructions button
+  clickInstructions() {
+    this.scene.start("instructionsScene")
   }
 }
 

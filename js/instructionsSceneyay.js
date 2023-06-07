@@ -16,7 +16,6 @@ class InstructionsScene extends Phaser.Scene {
     this.instructionsSceneBackgroundImage = null
     // Initializing back button
     this.backButton = null
-
     // Instructions scene text
     this.instructionsSceneText = null
     // Instructions scene text style
@@ -24,18 +23,13 @@ class InstructionsScene extends Phaser.Scene {
 
   // Initializing scene with background color
   init(data) {
-    this.cameras.main.setBackgroundColor("#ffffff")
+    this.cameras.main.setBackgroundColor("#94D2BD")
   }
 
-  // Logs instructions scene
-  preload() {
-    console.log("Instruction Scene")
-
-
-    // Logs instructions scene 
+  // Logs instructions scene 
   preload() {
     console.log("Instructions Scene")
-    this.load.image("instructionsSceneBackgroundImage", "./images/instructionsSceneImage.png");
+    this.load.image("instructionsSceneBackgroundImage", "./images/sunset-road-instructions.png");
     this.load.image("backButton", "./images/back.png");
   }
 
@@ -47,7 +41,7 @@ class InstructionsScene extends Phaser.Scene {
     this.instructionsSceneBackgroundImage.y = 1080 / 2
      this.backButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, "backButton")
     this.backButton.setInteractive({ useHandCursor: true })
-    this.backButton.on("pointerdown", () => this.clickButton())
+    this.backButton.on("pointerdown", () => this.clickBack())
     
     // Title scene text
     this.instructionsSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "1. Start the game./n2. Use the arrow keys to move the hydra left and right./n3. Press the spacebar to shoot fire missiles at the bombs and get points./n4. Don't get hit by the bombs, or it's game over./nGood luck!", this.instructionsSceneTextStyle).setOrigin(0.5, 2.5)
