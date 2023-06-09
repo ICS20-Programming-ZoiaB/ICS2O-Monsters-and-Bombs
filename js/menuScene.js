@@ -33,8 +33,9 @@ class MenuScene extends Phaser.Scene {
     this.load.image("instructionsButton", "images/instructions.png")
   }
 
-  // Creating objects
+  // Creating objects such as background image and buttons
   create(data) {
+    // Background image
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(3.79999)
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
@@ -61,7 +62,6 @@ class MenuScene extends Phaser.Scene {
   clickInstructions() {
     this.scene.start("instructionsScene")
   }
-
 }
 
 // Exports menu scene as default

@@ -3,25 +3,23 @@
 // Copyright (c) 2020 Mr. Coxall All rights reserved
 //
 // Edited by: ZoiaB
-// Edited on: May 2023
+// Edited on: June 2023
 // This is the Instructions Scene
 
 // This class is the Instructions Scene
 class InstructionsScene extends Phaser.Scene {
+  // This is the construnctor
   constructor() {
-    // Using the "instructionsScene" key to create an object
     super({key: "instructionsScene" })
-    // Constructing background image
     this.instructionsSceneBackgroundImage = null
     // Constructing back button
     this.backButton = null
-
     // Text and style
     this.instructionsText = null
     this.instructionsTextStyle = {font: "50px Roboto", fill: "#0A9396", align: "center"}
   }
 
-  // Setting scene with background color
+  // Initializing scene with background color
   init(data) {
     this.cameras.main.setBackgroundColor("#ffffff")
   }
@@ -34,8 +32,9 @@ class InstructionsScene extends Phaser.Scene {
     this.load.image("backButton", "./images/back.png");
   }
 
-  // Creating and positioning background image
+  // Creating and positioning images and text
   create(data) {
+    // Background image
     this.instructionsSceneBackgroundImage = this.add.sprite(0, 0, "instructionsSceneBackgroundImage").setScale(3.79999)
     this.instructionsSceneBackgroundImage.x = 1920 / 2
     this.instructionsSceneBackgroundImage.y = 1080 / 2

@@ -6,7 +6,6 @@
 // Edited on: May 2023
 // This is the Game Scene
 
-
 // Adding to Phaser.Scene
 class GameScene extends Phaser.Scene {
   // Create a bomb and setting velocity
@@ -23,7 +22,7 @@ class GameScene extends Phaser.Scene {
   // This is the constructor for the game scene
   constructor() {
     super({ key: "gameScene"})
-    // Assigning null to background, monster, and score text, false the fireMissile, and 0 to score
+    // Assigning null to background and monster, false to the fireMissile
     this.background = null
     this.monster = null
     this.fireMissile = false
@@ -31,6 +30,7 @@ class GameScene extends Phaser.Scene {
     this.score = 0
     this.scoreText = null
     this.scoreTextStyle = { font: "65px Roboto", fill: "#0A9396", align: "center"}
+    //Game over text
     this.gameOverText = null
     this.gameOverTextStyle = { font: "65px Roboto", fill: "#0A9396", align: "center"}
   }
@@ -61,13 +61,13 @@ class GameScene extends Phaser.Scene {
     // Score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
     // Monster
-    this.monster = this.physics.add.sprite(1920 / 2, 1080 - 100, "monster");
+    this.monster = this.physics.add.sprite(1920 / 2, 1080 - 75, "monster").setScale(0.5);
     // Missiles
     this.missileGroup = this.physics.add.group()
     // Bombs
     this.bombGroup = this.add.group()
     this.createBomb()
-    // Timer that controls the time for bombs and make it re-spawn even if user does nothing
+    // Timer that controls the time for bombs and make it re-spawn even if user does nothing (method taken from: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/timer/)
     this.bombTimer = this.time.addEvent({
       delay: 4000,
       callback: this.createBomb,
@@ -109,6 +109,7 @@ class GameScene extends Phaser.Scene {
 
   // Update using time and delta
   update(time, delta) {
+    
     // Keys to control movement of the monster and missiles
     const keyLeftObj = this.input.keyboard.addKey("LEFT")
     const keyRightObj = this.input.keyboard.addKey("RIGHT")
@@ -117,6 +118,9 @@ class GameScene extends Phaser.Scene {
     // If statement for if the left arrow is pressed
     if (keyLeftObj.isDown === true) {
       this.monster.x = this.monster.x - 15
+       // Flipping monster horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+      this.monster.setScale(0.5, 0.5);
+      // Wrapping to other side if it passes scene border
       if (this.monster.x < 0) {
         this.monster.x = 1920
       }
@@ -125,6 +129,9 @@ class GameScene extends Phaser.Scene {
     // If statement for if the right arrow is pressed
     if (keyRightObj.isDown === true) {
       this.monster.x = this.monster.x + 15
+      // Flipping monster horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+      this.monster.setScale(-0.5, 0.5);
+      // Wrapping to other side if it passes scene border
       if (this.monster.x > 1920) {
         this.monster.x = 0
       }
@@ -133,13 +140,23 @@ class GameScene extends Phaser.Scene {
     // If statement for if the space is pressed
     if (keySpaceObj.isDown === true) {
       if (this.fireMissile === false) {
-        // Firing missile
-        this.fireMissile = true
-        const aNewMissile = this.physics.add.sprite(this.monster.x - 140, this.monster.y - 150, "missile").setScale(0.7)
-        this.missileGroup.add(aNewMissile)
-        this.sound.play("laser")
+        this.fireMissile = true;
+      // variable for missile location
+      let missileX;
+      // if scale is positive, let missile location -140
+      if (this.monster.scaleX === 0.5) {
+        missileX = this.monster.x - 70;
+      } 
+      // Else, if missle loction is negative, let missile location + 140
+      else {
+        missileX = this.monster.x + 70;
       }
+    // Adding mew missile
+    const aNewMissile = this.physics.add.sprite(missileX, this.monster.y - 150, "missile").setScale(0.7);
+    this.missileGroup.add(aNewMissile);
+    this.sound.play("laser");
     }
+  }
 
     // If statement for if the space is up
     if (keySpaceObj.isUp === true) {
