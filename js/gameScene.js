@@ -94,6 +94,9 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.monster, this.bombGroup, function (monsterCollide, bombCollide) {
       // Play sound
       this.sound.play("bomb")
+      // Disable space bar so that missiles cannot fire when game is over
+      const keySpaceObj = this.input.keyboard.addKey("SPACE")
+      keySpaceObj.enabled = false;
       this.physics.pause()
       // Destroy when collision occurs
       bombCollide.destroy()
@@ -118,7 +121,7 @@ class GameScene extends Phaser.Scene {
     // If statement for if the left arrow is pressed
     if (keyLeftObj.isDown === true) {
       this.monster.x = this.monster.x - 15
-       // Flipping monster horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+       // Making monster face direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
       this.monster.setScale(0.5, 0.5);
       // Wrapping to other side if it passes scene border
       if (this.monster.x < 0) {
@@ -129,7 +132,7 @@ class GameScene extends Phaser.Scene {
     // If statement for if the right arrow is pressed
     if (keyRightObj.isDown === true) {
       this.monster.x = this.monster.x + 15
-      // Flipping monster horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+      // Making monster face direction in which it is going  (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
       this.monster.setScale(-0.5, 0.5);
       // Wrapping to other side if it passes scene border
       if (this.monster.x > 1920) {
@@ -141,16 +144,17 @@ class GameScene extends Phaser.Scene {
     if (keySpaceObj.isDown === true) {
       if (this.fireMissile === false) {
         this.fireMissile = true;
-      // variable for missile location
+      // Variable for missile location
       let missileX;
-      // if scale is positive, let missile location -140
+      // If scale has positive x value, let missile location -70
       if (this.monster.scaleX === 0.5) {
         missileX = this.monster.x - 70;
       } 
-      // Else, if missle loction is negative, let missile location + 140
+      // Else (missle loction is negative) let missile location + 70
       else {
         missileX = this.monster.x + 70;
       }
+        
     // Adding mew missile
     const aNewMissile = this.physics.add.sprite(missileX, this.monster.y - 150, "missile").setScale(0.7);
     this.missileGroup.add(aNewMissile);

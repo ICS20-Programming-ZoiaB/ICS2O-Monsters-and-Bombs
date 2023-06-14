@@ -18,6 +18,8 @@ class MenuScene extends Phaser.Scene {
     this.startButton = null
     // Button to go to instructions scene
     this.instructionsButton = null
+    // Adding background music
+    this.menuMusic = null;
   }
 
   // Initializing menu scene with background color
@@ -31,10 +33,15 @@ class MenuScene extends Phaser.Scene {
     this.load.image("menuSceneBackground", "images/gradient-sky-menu.png")
     this.load.image("startButton", "images/start.png")
     this.load.image("instructionsButton", "images/instructions.png")
+    this.load.audio("menuMusic", "audio/menu-background-music.mp3")
   }
 
   // Creating objects such as background image and buttons
   create(data) {
+    // Create background music
+    this.menuMusic = this.sound.add("menuMusic")
+    this.menuMusic.loop = true
+    this.menuMusic.play()
     // Background image
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(3.79999)
     this.menuSceneBackgroundImage.x = 1920 / 2
@@ -56,11 +63,17 @@ class MenuScene extends Phaser.Scene {
   // Function for clicking start button
   clickStart() {
     this.scene.start("gameScene")
+    // Pauses background music
+    this.menuMusic.pause()
+    this.menuMusic.loop = false
   }
 
   // Function for clicking instructions button
   clickInstructions() {
     this.scene.start("instructionsScene")
+    // Pauses background music
+    this.menuMusic.pause()
+    this.menuMusic.loop = false
   }
 }
 
