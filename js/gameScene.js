@@ -8,7 +8,7 @@
 
 // Adding to Phaser.Scene
 class GameScene extends Phaser.Scene {
-  // Create a bomb and setting velocity
+  // Setting bomb velocity, location, and scale
   createBomb () {
     const bombXLocation = Math.floor(Math.random() * 1920) +1
     let bombXVelocity = Math.floor(Math.random() * 50) + 1
@@ -113,7 +113,7 @@ class GameScene extends Phaser.Scene {
   // Update using time and delta
   update(time, delta) {
     
-    // Keys to control movement of the monster and missiles
+    // Keys to control movement of the monster
     const keyLeftObj = this.input.keyboard.addKey("LEFT")
     const keyRightObj = this.input.keyboard.addKey("RIGHT")
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
@@ -150,12 +150,12 @@ class GameScene extends Phaser.Scene {
       if (this.monster.scaleX === 0.5) {
         missileX = this.monster.x - 70;
       } 
-      // Else (missle loction is negative) let missile location + 70
+      // Else (missile location is negative) let missile location + 70
       else {
         missileX = this.monster.x + 70;
       }
         
-    // Adding mew missile
+    // Adding new missile
     const aNewMissile = this.physics.add.sprite(missileX, this.monster.y - 150, "missile").setScale(0.7);
     this.missileGroup.add(aNewMissile);
     this.sound.play("laser");

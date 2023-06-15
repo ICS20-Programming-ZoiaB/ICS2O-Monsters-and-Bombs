@@ -8,7 +8,7 @@
 
 // This class is the Instructions Scene
 class InstructionsScene extends Phaser.Scene {
-  // This is the construnctor
+  // This is the constructor
   constructor() {
     super({key: "instructionsScene" })
     this.instructionsSceneBackgroundImage = null
@@ -17,8 +17,6 @@ class InstructionsScene extends Phaser.Scene {
     // Text and style
     this.instructionsText = null
     this.instructionsTextStyle = {font: "50px Roboto", fill: "#0A9396", align: "center"}
-    // Adding background music
-    this.instructionsMusic = null;
   }
 
   // Initializing scene with background color
@@ -32,15 +30,10 @@ class InstructionsScene extends Phaser.Scene {
     // Loading in the images for the background and the back button
     this.load.image("instructionsSceneBackgroundImage", "./images/sunset-road-instructions.png");
     this.load.image("backButton", "./images/back.png");
-    this.load.audio("instructionsMusic", "audio/instructions-background-music.mp3")
   }
 
   // Creating and positioning images and text
   create(data) {
-    // Create background music
-    this.menuMusic = this.sound.add("menuMusic")
-    this.menuMusic.loop = true
-    this.menuMusic.play()
     // Background image
     this.instructionsSceneBackgroundImage = this.add.sprite(0, 0, "instructionsSceneBackgroundImage").setScale(3.79999)
     this.instructionsSceneBackgroundImage.x = 1920 / 2
@@ -56,13 +49,10 @@ class InstructionsScene extends Phaser.Scene {
   //update using time and delta
   update(time, delta) {
   }
-  
-  // If the back button is clicked, return to the menu scene
+
+  // Function for when back button is clicked (return to the menu scene)
   clickBack() {
     this.scene.start("menuScene")
-    // Pauses background music
-    this.instructionsMusic.pause()
-    this.instructionsMusic.loop = false
   }
 }
 
