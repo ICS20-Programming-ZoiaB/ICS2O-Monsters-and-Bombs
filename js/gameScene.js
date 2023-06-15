@@ -94,7 +94,7 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.monster, this.bombGroup, function (monsterCollide, bombCollide) {
       // Play sound
       this.sound.play("bomb")
-      // Disable space bar so that missiles cannot fire when game is over
+      // Pause space bar so that missiles cannot fire when game is over
       const keySpaceObj = this.input.keyboard.addKey("SPACE")
       keySpaceObj.enabled = false;
       this.physics.pause()
@@ -146,11 +146,11 @@ class GameScene extends Phaser.Scene {
         this.fireMissile = true;
       // Variable for missile location
       let missileX;
-      // If scale has positive x value, let missile location -70
+      // If monster scale has positive x value, let missile location -70
       if (this.monster.scaleX === 0.5) {
         missileX = this.monster.x - 70;
       } 
-      // Else (missile location is negative) let missile location + 70
+      // Else (monster scale x value is negative) let missile location + 70
       else {
         missileX = this.monster.x + 70;
       }
